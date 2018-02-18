@@ -73,6 +73,10 @@ class NewsletterSend(CSRFSchema):
 def newsletter(context: Admin, request: Request):
     """Newsletter admin form."""
     schema = NewsletterSend().bind(request=request)
+    headers = [
+        ('X-Frame-Options', 'SAMEORIGIN'),
+    ]
+    request.response.headerlist.extend(headers)
 
     # Create a styled button with some extra Bootstrap 3 CSS classes
     b = deform.Button(name='process', title="Send", css_class="btn-block btn-lg btn-primary")
